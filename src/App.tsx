@@ -15,7 +15,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const setTimeInterval = setInterval(() => {
-      document.title = `벌써 ${currTime.getHours()}시 ${currTime.getMinutes()}분이야...`;
+      let currHour = currTime.getHours() % 12;
+      let hour = currHour === 0 ? 12 : currHour;
+      document.title = `벌써 ${hour}시 ${currTime.getMinutes()}분이야...`;
       getCurrTime();
     }, 1000);
 
@@ -26,7 +28,12 @@ const App: React.FC = () => {
     <div className="App" style={{ display: "flex", justifyContent: "center" }}>
       <img
         src={imgBg}
-        style={{ pointerEvents: "none", position: "fixed", zIndex: -1 }}
+        style={{
+          pointerEvents: "none",
+          position: "fixed",
+          zIndex: -1,
+          width: "60vh",
+        }}
         alt=""
       />
       <ClockHand currTime={currTime} HHMMSS="hours" />
@@ -34,9 +41,10 @@ const App: React.FC = () => {
       <ClockHand currTime={currTime} HHMMSS="seconds" />
       <img
         style={{
+          width: "2vh",
           display: "flex",
           position: "fixed",
-          transform: "translateX(-190px) translateY(266px)",
+          transform: "translateX(-14vh) translateY(20vh)",
         }}
         src={imgCircle}
         alt=""
@@ -68,15 +76,15 @@ const TimeText: React.FC<TimeTextProps> = (props) => {
 
   const styleText: CSSProperties = {
     display: "flex",
-    width: "220px",
+    width: "50vh",
     textAlign: "center",
-    fontFamily: "sans serif",
     fontWeight: "bold",
-    fontSize: "26px",
+    fontSize: "2.5vh",
     position: "fixed",
-    transform: "translateX(-260px) translateY(500px)",
+    transform: "translateX(-2vh) translateY(36vh)",
     whiteSpace: "pre-line",
     userSelect: "none",
+    fontFamily: `nanum gothic, sans-serif`
   };
 
   const getHourText = () => {
@@ -116,7 +124,6 @@ const ClockHand: React.FC<HandProps> = (props) => {
   const variables = {
     translateX: "",
     translateY: "",
-    transformOrigin: "",
     degreesMultiplier: 0,
     time: 0,
     degrees: 0,
@@ -124,19 +131,16 @@ const ClockHand: React.FC<HandProps> = (props) => {
   };
 
   if (props.HHMMSS === "seconds") {
-    variables.transformOrigin = "5px 3px";
     variables.degreesMultiplier = 6;
     variables.time = props.currTime.getSeconds();
     variables.degrees = variables.time * variables.degreesMultiplier;
     variables.img = imgSecond;
   } else if (props.HHMMSS === "minutes") {
-    variables.transformOrigin = "5px 6px";
     variables.degreesMultiplier = 6;
     variables.time = props.currTime.getMinutes();
     variables.degrees = variables.time * variables.degreesMultiplier;
     variables.img = imgMinute;
   } else if (props.HHMMSS === "hours") {
-    variables.transformOrigin = "5px 6px";
     variables.degreesMultiplier = 30;
     variables.time = props.currTime.getHours();
     variables.degrees =
@@ -149,12 +153,13 @@ const ClockHand: React.FC<HandProps> = (props) => {
     <div>
       <img
         style={{
+          width: "3.9vh",
           display: "flex",
           position: "fixed",
-          transformOrigin: "25px 107px",
+          transformOrigin: "1.95vh 8.5vh",
           transform: `
-              translateX(-214px)
-              translateY(170px)
+              translateX(-16vh)
+              translateY(13vh)
               rotate(${variables.degrees - 10}deg )`,
         }}
         src={variables.img}
