@@ -76,15 +76,17 @@ const TimeText: React.FC<TimeTextProps> = (props) => {
 
   const styleText: CSSProperties = {
     display: "flex",
-    width: "50vh",
+    justifyContent: "center",
+    width: "20vh",
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: "2.5vh",
+    fontSize: "2.4vh",
     position: "fixed",
-    transform: "translateX(-2vh) translateY(36vh)",
+    transform: "translateX(-19.5vh) translateY(36.5vh)",
     whiteSpace: "pre-line",
     userSelect: "none",
-    fontFamily: `nanum gothic, sans-serif`
+    fontFamily: "sans-serif",
+    lineHeight: "2.8vh"
   };
 
   const getHourText = () => {
@@ -93,7 +95,7 @@ const TimeText: React.FC<TimeTextProps> = (props) => {
     if (minutes < 20) {
       return HoursText[hours] + "시";
     } else if (minutes < 40) {
-      return HoursText[hours] + "시 반이";
+      return HoursText[hours] + "시\n반이";
     } else {
       if (hours === 11) {
         return HoursText[0] + "시";
@@ -159,7 +161,7 @@ const ClockHand: React.FC<HandProps> = (props) => {
           transformOrigin: "1.95vh 8.5vh",
           transform: `
               translateX(-16vh)
-              translateY(13vh)
+              translateY(12.5vh)
               rotate(${variables.degrees - 10}deg )`,
         }}
         src={variables.img}
