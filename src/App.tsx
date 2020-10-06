@@ -86,7 +86,7 @@ const TimeText: React.FC<TimeTextProps> = (props) => {
     whiteSpace: "pre-line",
     userSelect: "none",
     fontFamily: "sans-serif",
-    lineHeight: "2.8vh"
+    lineHeight: "2.8vh",
   };
 
   const getHourText = () => {
