@@ -1,7 +1,6 @@
 {
     "env": {
-        "browser": true,
-        "es2021": true
+        "browser": true
     },
     "extends": [
         "eslint:recommended",
@@ -13,7 +12,7 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 12,
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
     "plugins": [
@@ -21,5 +20,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-    }
+
+    },
+    "ignorePatterns": ["build/*"]
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, CSSProperties } from "react";
 import imgBg from "./resources/img/bg.jpg";
 import imgHour from "./resources/img/handHour.png";
@@ -15,8 +16,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const setTimeInterval = setInterval(() => {
-      let currHour = currTime.getHours() % 12;
-      let hour = currHour === 0 ? 12 : currHour;
+      const currHour = currTime.getHours() % 12;
+      const hour = currHour === 0 ? 12 : currHour;
       document.title = `벌써 ${hour}시 ${currTime.getMinutes()}분이야...`;
       getCurrTime();
     }, 1000);
@@ -32,19 +33,19 @@ const App: React.FC = () => {
           pointerEvents: "none",
           position: "fixed",
           zIndex: -1,
-          width: "60vh",
+          width: "45vmax",
         }}
         alt=""
       />
-      <ClockHand currTime={currTime} HHMMSS="hours" />
-      <ClockHand currTime={currTime} HHMMSS="minutes" />
-      <ClockHand currTime={currTime} HHMMSS="seconds" />
+      <ClockHand currTime={currTime} HMS="hours" />
+      <ClockHand currTime={currTime} HMS="minutes" />
+      <ClockHand currTime={currTime} HMS="seconds" />
       <img
         style={{
-          width: "2vh",
+          width: "1.5vmax",
           display: "flex",
           position: "fixed",
-          transform: "translateX(-14vh) translateY(20vh)",
+          transform: "translateX(-10.5vmax) translateY(15vmax)",
         }}
         src={imgCircle}
         alt=""
@@ -58,40 +59,41 @@ type TimeTextProps = {
   currTime: Date;
 };
 
+// TimeText
+const HoursText: string[] = [
+  "열두", //0
+  "한",
+  "두",
+  "세",
+  "네",
+  "다섯",
+  "여섯",
+  "일곱",
+  "여덟",
+  "아홉",
+  "열",
+  "열한", //11
+];
+
+const styleText: CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  width: "20vmax",
+  textAlign: "center",
+  fontWeight: "bold",
+  fontSize: "1.5vmax",
+  position: "fixed",
+  transform: "translateX(-15vmax) translateY(28vmax)",
+  whiteSpace: "pre-line",
+  userSelect: "none",
+  fontFamily: "sans-serif",
+  lineHeight: "2vmax",
+};
+
 const TimeText: React.FC<TimeTextProps> = (props) => {
-  const HoursText: string[] = [
-    "열두", //0
-    "한",
-    "두",
-    "세",
-    "네",
-    "다섯",
-    "여섯",
-    "일곱",
-    "여덟",
-    "아홉",
-    "열",
-    "열한", //11
-  ];
-
-  const styleText: CSSProperties = {
-    display: "flex",
-    justifyContent: "center",
-    width: "20vh",
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: "2.4vh",
-    position: "fixed",
-    transform: "translateX(-19.5vh) translateY(36.5vh)",
-    whiteSpace: "pre-line",
-    userSelect: "none",
-    fontFamily: "sans-serif",
-    lineHeight: "2.8vh",
-  };
-
   const getHourText = () => {
-    let hours = props.currTime.getHours() % 12;
-    let minutes = props.currTime.getMinutes();
+    const hours = props.currTime.getHours() % 12;
+    const minutes = props.currTime.getMinutes();
     if (minutes < 20) {
       return HoursText[hours] + "시";
     } else if (minutes < 40) {
@@ -119,7 +121,7 @@ const TimeText: React.FC<TimeTextProps> = (props) => {
 
 type HandProps = {
   currTime: Date;
-  HHMMSS: string;
+  HMS: string;
 };
 
 const ClockHand: React.FC<HandProps> = (props) => {
@@ -132,17 +134,17 @@ const ClockHand: React.FC<HandProps> = (props) => {
     img: "",
   };
 
-  if (props.HHMMSS === "seconds") {
+  if (props.HMS === "seconds") {
     variables.degreesMultiplier = 6;
     variables.time = props.currTime.getSeconds();
     variables.degrees = variables.time * variables.degreesMultiplier;
     variables.img = imgSecond;
-  } else if (props.HHMMSS === "minutes") {
+  } else if (props.HMS === "minutes") {
     variables.degreesMultiplier = 6;
     variables.time = props.currTime.getMinutes();
     variables.degrees = variables.time * variables.degreesMultiplier;
     variables.img = imgMinute;
-  } else if (props.HHMMSS === "hours") {
+  } else if (props.HMS === "hours") {
     variables.degreesMultiplier = 30;
     variables.time = props.currTime.getHours();
     variables.degrees =
@@ -155,13 +157,13 @@ const ClockHand: React.FC<HandProps> = (props) => {
     <div>
       <img
         style={{
-          width: "3.9vh",
+          width: "3vmax",
           display: "flex",
           position: "fixed",
-          transformOrigin: "1.95vh 8.5vh",
+          transformOrigin: "1.5vmax 6.5vmax",
           transform: `
-              translateX(-16vh)
-              translateY(12.5vh)
+              translateX(-11.8vmax)
+              translateY(9.2vmax)
               rotate(${variables.degrees - 10}deg )`,
         }}
         src={variables.img}
